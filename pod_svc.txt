@@ -103,7 +103,7 @@ spec:
   
   Headless Service
   -----------------
-  kind: Service
+kind: Service
 apiVersion: v1
 metadata:
   name: demoservice
