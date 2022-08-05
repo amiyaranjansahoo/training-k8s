@@ -96,3 +96,65 @@ spec:
         - name: mypd
           persistentVolumeClaim:
             claimName: myebsvolclaim
+         
+         
+     config map
+     ----------
+     apiVersion: v1
+kind: Pod
+metadata:
+  name: myvolconfig
+spec:
+  containers:
+  - name: c1
+    image: centos
+    command: ["/bin/bash", "-c", "while true; do echo welcome to aws; sleep 5 ; done"]
+    volumeMounts:
+      - name: testconfigmap
+        mountPath: "/tmp/config"   
+  volumes:
+  - name: testconfigmap
+    configMap:
+       name: mymap   
+       items:
+       - key: sample.conf
+         path: sample.conf
+
+-----------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myenvconfig
+spec:
+  containers:
+  - name: c1
+    image: centos
+    command: ["/bin/bash", "-c", "while true; do echo welcome to aws; sleep 5 ; done"]
+    env:
+    - name: MYENV         
+      valueFrom:
+        configMapKeyRef:
+          name: mymap      
+          key: sample.conf
+----------
+secret
+-----------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myvolsecret
+spec:
+  containers:
+  - name: c1
+    image: centos
+    command: ["/bin/bash", "-c", "while true; do echo welcome to aws; sleep 5 ; done"]
+    volumeMounts:
+      - name: testsecret
+        mountPath: "/tmp/mysecrets"   
+  volumes:
+  - name: testsecret
+    secret:
+       secretName: mysecret
+
+
+
