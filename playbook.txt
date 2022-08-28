@@ -1,0 +1,42 @@
+# Creating single task
+---
+- name: First yaml script
+  hosts: web
+  tasks: 
+  - name: Create a dummmy file
+    command: touch /tmp/sample.txt
+
+# Creating multiple task
+---
+- name: first play
+  hosts: web
+  
+  tasks: 
+   - name: Create a dummy file
+     command: touch /tmp/sample.txt
+   
+   - name: Create a direcotry
+     command: mkdir -p test
+     
+# Creating multiple play
+---
+- name: first playbook
+  hosts: web
+  
+  tasks: 
+   - name: Create a dummy file
+     command: touch /tmp/sample.txt
+   
+   - name: Create a direcotry
+     command: mkdir -p test
+     
+- name: second playbook
+  hosts: db
+  
+  tasks: 
+   - name: Create a dummy file
+     command: touch /tmp/sample.txt
+   
+   - name: Create a direcotry
+     command: mkdir -p test
+
